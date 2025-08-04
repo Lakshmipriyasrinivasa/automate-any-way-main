@@ -33,6 +33,7 @@ const menuItems = [
   { title: "Documents", url: "/documents", icon: FileText },
   { title: "Settings", url: "/settings", icon: Settings },
   { title: "Add Workforce", url: "/fieldwork", icon: Users },
+  { title: "Assets", url: "/assets", icon: Users },
 
 ];
 
