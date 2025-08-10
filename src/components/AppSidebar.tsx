@@ -34,6 +34,8 @@ const menuItems = [
   { title: "Settings", url: "/settings", icon: Settings },
   { title: "Add Workforce", url: "/fieldwork", icon: Users },
   { title: "Assets", url: "/assets", icon: Users },
+  { title: "New Serivce Contract", url: "/newservicecontract", icon: Users },
+
 
 ];
 

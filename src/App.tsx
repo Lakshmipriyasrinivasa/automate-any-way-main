@@ -13,9 +13,12 @@ import FieldWorkforce from '@/components/FieldWorkforce';
 import FieldWorkerForm from '@/components/FieldWorkerForm';
 import ScheduleOverview from '@/components/ScheduleOverview.jsx';
 import Assets from "./components/Assets";
-import NewAsset from "@/components/NewAsset";
-
+import NewAsset from "@/components/NewAsset"
 // import Assets from "@/components/Assets";
+import Newservicecontract from "@/components/New Serive Contract"
+import ServiceContractInfo from "@/components/Service Contract Info"
+import WorkerList from "@/components/WorkerList.tsx"
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -38,6 +41,9 @@ const App = () => (
     <Route path="/register" element={<FieldWorkerForm />} />
           <Route path="/assets" element={<Layout title="Assets"> <Assets /> </Layout>} />
           <Route path="/assets/new" element={<Layout title="Add New Asset"><NewAsset /></Layout>} />
+          <Route path="/newservicecontract" element={<Layout title="Newservicecontract"><Newservicecontract/></Layout>} />
+          <Route path="/servicecontractinfo" element={<Layout title="Service Contract Info"><ServiceContractInfo/></Layout>} />
+          <Route path="/useeff" element={<Layout title="WorkerList"> <WorkerList /> </Layout>} />
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

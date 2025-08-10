@@ -1,0 +1,272 @@
+.contract-container {
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.form-section {
+  background: #f9f9f9;
+  padding: 25px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-section h3 {
+  margin-bottom: 20px;
+  color: #444;
+}
+
+.form-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.form-fields label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.form-fields label span {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.form-fields input,
+.form-fields textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-fields input[readonly] {
+  background-color: #f1f1f1;
+  color: #666;
+}
+
+.form-fields.right {
+  grid-column: span 1;
+}
+
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.address-section {
+  background: #f9f9f9;
+  padding: 25px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.address-section h3 {
+  margin-bottom: 20px;
+  color: #444;
+}
+
+.address-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.column {
+  padding: 15px;
+}
+
+.column h4 {
+  margin-bottom: 15px;
+  color: #444;
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+}
+
+button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+button[type="button"] {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+
+.address-container {
+  padding: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: #2c3e50;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.address-form {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.collapsible-header {
+  padding: 15px;
+  background-color: #ecf0f1;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.collapsible-header:hover {
+  background-color: #dfe6ea;
+}
+
+.collapsible-header h3 {
+  color: #2c3e50;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.collapsible-content {
+  transition: all 0.3s ease-out;
+  overflow: hidden;
+}
+
+.collapsible-content.collapsed {
+  max-height: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.collapsible-content:not(.collapsed) {
+  max-height: 500px; /* Adjust based on content height */
+  padding: 20px 0;
+}
+
+.address-columns {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.address-column {
+  flex: 1;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.address-column h4 {
+  color: #34495e;
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+label {
+  display: block;
+  margin-bottom: 15px;
+}
+
+label span {
+  color: #7f8c8d;
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+input::placeholder {
+  color: #bdc3c7;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button[type="button"] {
+  background-color: #ecf0f1;
+  color: #2c3e50;
+}
+
+button[type="submit"] {
+  background-color: #3498db;
+  color: #ffffff;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
