@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './ServiceContractForm.css'; // Optional: for styling
 
 interface ServiceContractFormData {
+  contractOwner: string;
   contractNumber: string;
   contractName: string;
   description: string;
@@ -29,6 +30,7 @@ interface ServiceContractFormData {
 
 const ServiceContractForm: React.FC = () => {
   const [formData, setFormData] = useState<ServiceContractFormData>({
+    contractOwner: "",
     contractNumber: '',
     contractName: '',
     description: '',
@@ -38,10 +40,10 @@ const ServiceContractForm: React.FC = () => {
     endDate: '',
     termMonths: '',
     specialTerms: '',
-    discount: '0.00%',
+    discount: "0.00",
     shippingHandling: '',
     tax: '',
-    grandTotal: '₹0.00',
+    grandTotal: "0.00",
     billingStreet: '',
     billingCity: '',
     billingZip: '',
@@ -55,19 +57,31 @@ const ServiceContractForm: React.FC = () => {
   });
 
   const [isAddressCollapsed, setIsAddressCollapsed] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+ const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Add your submit logic here
+    try {
+     const res = await fetch("http://localhost:5000/api/service-contract", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(formData),
+      });
+      const result = await res.json();
+      if (result.success) {
+        alert("Service contract saved!");
+      } else {
+        alert("Failed to save: " + result.error);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error submitting form");
+    }
   };
 
   return (
@@ -77,18 +91,26 @@ const ServiceContractForm: React.FC = () => {
         <div className="form-section">
           <h3>Service Contract Information</h3>
           <div className="form-fields">
-            <label>
-              Service Contract Owner
-              <input type="text" value="{formData.Contract Owner}" readOnly />
-            </label>
+          
+      <label>
+        Contract Owner
+        <input
+          type="text"
+          name="contractOwner"
+          value={formData.contractOwner}
+          onChange={handleChange}
+        />
+      </label>
+
             <label>
               Contract Number
               <input
-                type="text"
-                name="contractNumber"
-                value={formData.contractNumber}
-                onChange={handleChange}
-              />
+  type="text"
+  name="contractNumber"
+  value={formData.contractNumber}
+  onChange={handleChange}
+/>
+
             </label>
             <label>
               * Contract Name
@@ -171,13 +193,13 @@ const ServiceContractForm: React.FC = () => {
           <div className="form-fields">
             <label>
               Discount
-              <input
-                type="text"
-                name="discount"
-                value={formData.discount}
-                onChange={handleChange}
-                readOnly
-              />
+             <input
+  type="text"
+  name="discount"
+  value={formData.discount + "%"}
+  readOnly
+/>
+
             </label>
             <label>
               Shipping and Handling
@@ -197,16 +219,16 @@ const ServiceContractForm: React.FC = () => {
                 onChange={handleChange}
               />
             </label>
-            <label>
-              Grand Total
-              <input
-                type="text"
-                name="grandTotal"
-                value={formData.grandTotal}
-                onChange={handleChange}
-                readOnly
-              />
-            </label>
+          <label>
+  Grand Total
+  <input
+    type="text"
+    name="grandTotal"
+    value={formData.grandTotal + "₹"}
+    readOnly
+  />
+</label>
+
           </div>
         </div>
 

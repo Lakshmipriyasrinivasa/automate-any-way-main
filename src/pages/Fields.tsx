@@ -223,6 +223,7 @@ const Fields = () => {
         <div>
           <h1 className="text-3xl font-bold text-foreground">Field Management</h1>
           <p className="text-muted-foreground">Manage and monitor your field operations</p>
+              <span style={{ color: '#666' }}>Recently Viewed ▼</span>
         </div>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>

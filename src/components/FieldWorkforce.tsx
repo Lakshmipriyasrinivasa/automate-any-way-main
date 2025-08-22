@@ -55,9 +55,11 @@ const FieldWorkforce: React.FC = () => {
   }, []);
 
   return (
+    
     <div className="p-6 bg-white rounded-lg shadow-md space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-800">Field Workforce</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Recently Viewed ▼</h1>
+          {/* <span style={{ color: '#666' }}>Recently Viewed ▼</span> */}
         <Button onClick={handleAdd}>Add</Button>
       </div>
 

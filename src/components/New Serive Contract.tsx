@@ -9,31 +9,48 @@ function ServicePage() {
   };
 
   return (
-    <div style={{
-      display: 'flex',
-      justifyContent: 'flex-end',
-      padding: '20px',
-      backgroundColor: '#f9f9f9',
-      borderBottom: '1px solid #ccc'
-    }}>
-      <button
-        onClick={handleAddClick}
-        style={{
-          padding: '10px 20px',
-          backgroundColor: '#007bff',
-          color: '#fff',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-          fontWeight: 'bold',
-          fontSize: '16px',
-          boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)'
-        }}
-      >
-        + Add Service Contract
+    <div style={styles.header}>
+      <div>
+        {/* <h2 style={styles.title}>Assets</h2> */}
+        <span style={styles.dropdown}>
+          Recently Viewed ▼
+        </span>
+      </div>
+      <button style={styles.newButton} onClick={handleAddClick}>
+        New
       </button>
     </div>
   );
 }
+
+const styles = {
+  header: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    padding: "10px 20px",
+    borderBottom: "1px solid #ddd",
+    backgroundColor: "#fff",
+  },
+  title: {
+    margin: 0,
+    fontSize: "16px",
+    fontWeight: "bold",
+  },
+  dropdown: {
+    fontSize: "14px",
+    color: "#555",
+    cursor: "pointer",
+  },
+  newButton: {
+    backgroundColor: "#0070d2",
+    color: "#fff",
+    border: "none",
+    borderRadius: "4px",
+    padding: "5px 12px",
+    cursor: "pointer",
+    fontSize: "14px",
+  },
+};
 
 export default ServicePage;

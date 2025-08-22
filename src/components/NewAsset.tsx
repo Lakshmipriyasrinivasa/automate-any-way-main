@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";  
+// import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,19 +24,53 @@ const NewAsset: React.FC = () => {
     address: "",
   });
 
+  const [saving, setSaving] = useState(false);
+    const [contacts, setContacts] = useState<any[]>([]);   // ✅ added contacts state
+
+useEffect(() => {
+    fetch("http://localhost:5000/api/contacts/dropdown")
+      .then(res => res.json())
+      .then(data => setContacts(data))
+      .catch(err => console.error("Error loading contacts:", err));
+  }, []);
   const handleChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleCancel = () => {
     navigate("/assets");
   };
 
-  const handleSave = () => {
-    console.log("Saved Asset:", formData);
-    // Send data to backend API here
-    navigate("/assets");
-  };
+  // ✅ Add handleSave here
+  const handleSave = async () => {
+  if (!formData.assetName.trim()) {
+    alert("Asset Name is required");
+    return;
+  }
+  try {
+    setSaving(true);
+    const response = await fetch("http://localhost:5000/api/newassets", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      const text = await response.text();
+      throw new Error(text || "Failed to save asset");
+    }
+
+    const created = await response.json();
+    console.log("✅ Created asset:", created);
+
+    navigate("/assets"); // redirect after success
+  } catch (err) {
+    console.error("Save failed:", err);
+    alert("Failed to save asset. Check console for details.");
+  } finally {
+    setSaving(false);
+  }
+};
 
   return (
     <div className="p-6 bg-white rounded-lg shadow-md max-w-5xl mx-auto">
@@ -82,16 +117,24 @@ const NewAsset: React.FC = () => {
               onChange={(e) => handleChange("company", e.target.value)}
             />
           </div>
-          <div>
+            <div>
             <Label>Contact</Label>
-            <Input
-              placeholder="Search Contact"
-              value={formData.contact}
+            <select
+              className="w-full border rounded p-2"
+              value={formData.contact}   // ✅ use formData.contact
               onChange={(e) => handleChange("contact", e.target.value)}
-            />
+            >
+              <option value="">Select Contact</option>
+              {contacts.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
       </div>
+       
 
       {/* Address */}
       <div className="mt-6">
