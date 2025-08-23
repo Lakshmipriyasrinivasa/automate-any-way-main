@@ -1,87 +1,53 @@
-import React, { useState } from "react";
-import { Input } from "@/components/ui/input";
+// src/pages/account.tsx
+
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-const AccountForm: React.FC = () => {
-  const [formData, setFormData] = useState({
-    organization_id: "",
-    name: "",
-    status: "",
-    type: "",
-    industry: "",
-    territory_id: "",
-    contract_status: "",
-    credit_limit: "",
-    payment_terms: "",
-    total_revenue: "",
-    customer_rating: "",
-    account_manager: "",
-    created_by: "",
-    updated_by: ""
-  });
+const Account: React.FC = () => {
+  const navigate = useNavigate();
+  const [lastUpdated, setLastUpdated] = useState<string>("a few seconds ago");
+  const [items, setItems] = useState<number>(1); // Example: 1 item
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-
-  const normalizedData = {
-    ...formData,
-    organization_id: formData.organization_id?.trim() || null,
-    territory_id: formData.territory_id?.trim() || null,
-    account_manager: formData.account_manager?.trim() || null,
-    created_by: formData.created_by?.trim() || null,
-    updated_by: formData.updated_by?.trim() || null,
-    credit_limit: formData.credit_limit ? Number(formData.credit_limit) : null,
-    total_revenue: formData.total_revenue ? Number(formData.total_revenue) : null,
-  };
-
-  try {
-    const res = await fetch("http://localhost:5000/api/accounts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(normalizedData),
-    });
-
-    if (!res.ok) {
-      const errorText = await res.text();
-      throw new Error(errorText);
-    }
-
-    const data = await res.json();
-    console.log("✅ Account created:", data);
-    alert("✅ Account created successfully!");
-  } catch (err) {
-    console.error("❌ Error creating account:", err);
-    alert("Failed to create account. Check console for details.");
-  }
-};
+  // Simulate updating timestamp
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLastUpdated("a few seconds ago"); // Later you can calculate real time
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="space-y-3 p-4 border rounded-xl shadow-md max-w-lg mx-auto"
-    >
-      <Input name="organization_id" placeholder="Organization UUID" onChange={handleChange} />
-      <Input name="name" placeholder="Account Name" required onChange={handleChange} />
-      <Input name="status" placeholder="Status" onChange={handleChange} />
-      <Input name="type" placeholder="Type" onChange={handleChange} />
-      <Input name="industry" placeholder="Industry" onChange={handleChange} />
-      <Input name="territory_id" placeholder="Territory UUID" onChange={handleChange} />
-      <Input name="contract_status" placeholder="Contract Status" onChange={handleChange} />
-      <Input name="credit_limit" placeholder="Credit Limit" type="number" onChange={handleChange} />
-      <Input name="payment_terms" placeholder="Payment Terms" onChange={handleChange} />
-      <Input name="total_revenue" placeholder="Total Revenue" type="number" onChange={handleChange} />
-      <Input name="customer_rating" placeholder="Customer Rating" onChange={handleChange} />
-      <Input name="account_manager" placeholder="Account Manager UUID" onChange={handleChange} />
-      <Input name="created_by" placeholder="Created By (User UUID)" onChange={handleChange} />
-      <Input name="updated_by" placeholder="Updated By (User UUID)" onChange={handleChange} />
+    <div className="p-6">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-4">
+        <div>
+          <h1 className="text-xl font-semibold">Accounts</h1>
+          <div className="flex items-center space-x-2 text-sm text-gray-600">
+            <span>Recently Viewed ▼</span>
+          </div>
+        </div>
 
-      <Button type="submit" className="w-full">Create Account</Button>
-    </form>
+        {/* New button */}
+        <Button
+          className="bg-blue-600 text-white hover:bg-blue-700"
+          onClick={() => navigate("/accountform")}
+        >
+          New
+        </Button>
+      </div>
+
+      {/* Sub info */}
+      <p className="text-sm text-gray-500 mb-4">
+        {items} item{items !== 1 ? "s" : ""} – Updated {lastUpdated}
+      </p>
+
+      {/* List (dummy for now) */}
+      <div className="border rounded p-4">
+        <p>No accounts added yet.</p>
+      </div>
+    </div>
   );
 };
 
-export default AccountForm;
+export default Account;

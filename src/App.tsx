@@ -18,8 +18,11 @@ import Newservicecontract from "@/components/New Serive Contract"
 import ServiceContractInfo from "@/components/Service Contract Info"
 import WorkerList from "@/components/WorkerList.tsx"
 import Account from "@/components/Account"
+import Accountform from "@/components/Accountform"
+import Contactform from "@/components/Contactform"
 import Contact from "@/components/Contact"
 import Workorder from "@/components/Workorder"
+import Workorderform from "@/components/Workorderform"
 import User from "@/components/user"
 import Newuser from "@/components/Newuser"
 
@@ -48,9 +51,12 @@ const App = () => (
           <Route path="/newservicecontract" element={<Layout title="Newservicecontract"><Newservicecontract/></Layout>} />
           <Route path="/servicecontractinfo" element={<Layout title="Service Contract Info"><ServiceContractInfo/></Layout>} />
           <Route path="/workerlist" element={<Layout title="WorkerList"> <WorkerList /> </Layout>} />
-          <Route path="/account" element={<Layout title="Account"> <Account /> </Layout>} />
-          <Route path="/contact" element={<Layout title="Contact"> <Contact /> </Layout>} />
-          <Route path="/workorder" element={<Layout title="Workorder"> <Workorder /> </Layout>} />
+           <Route path="/account" element={<Layout title="Account"> <Account /> </Layout>} />
+          <Route path="/accountform" element={<Layout title="Accountform"> <Accountform /> </Layout>} />
+          <Route path="/contactform" element={<Layout title="Contactform"> <Contactform /> </Layout>} />
+          <Route path="/Contact" element={<Layout title="Contact"> <Contact /> </Layout>} />
+          <Route path="/workorderform" element={<Layout title="Workorderform"> <Workorderform /> </Layout>} />
+          <Route path="/workorder" element={<Layout title="Workorder"> <Workorder/> </Layout>} />
           <Route path="/user" element={<Layout title="User"> <User /> </Layout>} />
           <Route path="/newuser" element={<Layout title="Newuser"> <Newuser /> </Layout>} />
 
