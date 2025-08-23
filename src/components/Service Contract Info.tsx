@@ -233,110 +233,65 @@ const ServiceContractForm: React.FC = () => {
         </div>
 
         <div className="address-section">
-          <h3 onClick={() => setIsAddressCollapsed(!isAddressCollapsed)} className="collapsible-header">
-            Address Information {isAddressCollapsed ? '▼' : '▲'}
-          </h3>
-          <div className={`address-content ${isAddressCollapsed ? 'collapsed' : ''}`}>
-            <div className="address-columns">
-              <div className="column">
-                <h4>Billing Address</h4>
-                <label>
-                  Billing Street
-                  <input
-                    type="text"
-                    name="billingStreet"
-                    value={formData.billingStreet}
-                    onChange={handleChange}
-                  />
-                </label>
-                <label>
-                  Billing City
-                  <input
-                    type="text"
-                    name="billingCity"
-                    value={formData.billingCity}
-                    onChange={handleChange}
-                  />
-                </label>
-                <label>
-                  Billing Zip
-                  <input
-                    type="text"
-                    name="billingZip"
-                    value={formData.billingZip}
-                    onChange={handleChange}
-                  />
-                </label>
-                <label>
-                  Billing State
-                  <input
-                    type="text"
-                    name="billingState"
-                    value={formData.billingState}
-                    onChange={handleChange}
-                  />
-                </label>
-                <label>
-                  Billing Country
-                  <input
-                    type="text"
-                    name="billingCountry"
-                    value={formData.billingCountry}
-                    onChange={handleChange}
-                  />
-                </label>
-              </div>
-              <div className="column">
-                <h4>Shipping Address</h4>
-                <label>
-                  Shipping Street
-                  <input
-                    type="text"
-                    name="shippingStreet"
-                    value={formData.shippingStreet}
-                    onChange={handleChange}
-                  />
-                </label>
-                <label>
-                  Shipping City
-                  <input
-                    type="text"
-                    name="shippingCity"
-                    value={formData.shippingCity}
-                    onChange={handleChange}
-                  />
-                </label>
-                <label>
-                  Shipping Zip
-                  <input
-                    type="text"
-                    name="shippingZip"
-                    value={formData.shippingZip}
-                    onChange={handleChange}
-                  />
-                </label>
-                <label>
-                  Shipping State
-                  <input
-                    type="text"
-                    name="shippingState"
-                    value={formData.shippingState}
-                    onChange={handleChange}
-                  />
-                </label>
-                <label>
-                  Shipping Country
-                  <input
-                    type="text"
-                    name="shippingCountry"
-                    value={formData.shippingCountry}
-                    onChange={handleChange}
-                  />
-                </label>
-              </div>
-            </div>
-          </div>
+  <h3
+    onClick={() => setIsAddressCollapsed(!isAddressCollapsed)}
+    className="collapsible-header"
+  >
+    Address Information {isAddressCollapsed ? "▼" : "▲"}
+  </h3>
+  <div className={`address-content ${isAddressCollapsed ? "collapsed" : ""}`}>
+    <div className="address-columns">
+      <div className="column">
+        <h4>Billing Address</h4>
+        <div className="form-group">
+          <label>Billing Street</label>
+          <input type="text" name="billingStreet" value={formData.billingStreet} onChange={handleChange} />
         </div>
+        <div className="form-group">
+          <label>Billing City</label>
+          <input type="text" name="billingCity" value={formData.billingCity} onChange={handleChange} />
+        </div>
+        <div className="form-group">
+          <label>Billing Zip</label>
+          <input type="text" name="billingZip" value={formData.billingZip} onChange={handleChange} />
+        </div>
+        <div className="form-group">
+          <label>Billing State</label>
+          <input type="text" name="billingState" value={formData.billingState} onChange={handleChange} />
+        </div>
+        <div className="form-group">
+          <label>Billing Country</label>
+          <input type="text" name="billingCountry" value={formData.billingCountry} onChange={handleChange} />
+        </div>
+      </div>
+
+      <div className="column">
+        <h4>Shipping Address</h4>
+        <div className="form-group">
+          <label>Shipping Street</label>
+          <input type="text" name="shippingStreet" value={formData.shippingStreet} onChange={handleChange} />
+        </div>
+        <div className="form-group">
+          <label>Shipping City</label>
+          <input type="text" name="shippingCity" value={formData.shippingCity} onChange={handleChange} />
+        </div>
+        <div className="form-group">
+          <label>Shipping Zip</label>
+          <input type="text" name="shippingZip" value={formData.shippingZip} onChange={handleChange} />
+        </div>
+        <div className="form-group">
+          <label>Shipping State</label>
+          <input type="text" name="shippingState" value={formData.shippingState} onChange={handleChange} />
+        </div>
+        <div className="form-group">
+          <label>Shipping Country</label>
+          <input type="text" name="shippingCountry" value={formData.shippingCountry} onChange={handleChange} />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
         <div className="buttons">
           <button type="button">Cancel</button>

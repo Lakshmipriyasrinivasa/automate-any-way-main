@@ -270,3 +270,45 @@ button:hover {
 button:active {
   transform: translateY(0);
 }
+.address-section {
+  margin-top: 20px;
+}
+
+.collapsible-header {
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.address-columns {
+  display: flex;
+  gap: 40px; /* space between billing and shipping */
+}
+
+.column {
+  flex: 1;
+}
+
+h4 {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
