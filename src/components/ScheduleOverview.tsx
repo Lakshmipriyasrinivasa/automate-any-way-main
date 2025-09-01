@@ -1,156 +1,1066 @@
-import React, { useState, useMemo } from "react";
-import { Calendar, momentLocalizer, Views } from "react-big-calendar";
-import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import {
-  Select, SelectTrigger, SelectValue, SelectContent, SelectItem,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
-import { Card } from "@/components/ui/card";
+// // // // // import React, { useState } from "react";
+// // // // // import { Calendar, momentLocalizer, Views } from "react-big-calendar";
+// // // // // import moment from "moment";
+// // // // // import "react-big-calendar/lib/css/react-big-calendar.css";
+// // // // // import { Button } from "@/components/ui/button";
+// // // // // import { Card, CardContent } from "@/components/ui/card";
+// // // // // import {
+// // // // //   Select,
+// // // // //   SelectContent,
+// // // // //   SelectItem,
+// // // // //   SelectTrigger,
+// // // // //   SelectValue,
+// // // // // } from "@/components/ui/select";
+// // // // // import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+// // // // // import { Input } from "@/components/ui/input";
 
-const localizer = momentLocalizer(moment);
+// // // // // const localizer = momentLocalizer(moment);
 
-// Sample data
-const items = [
-  {
-    id: 1,
-    title: "Visit - Client A",
-    type: "Visit",
-    status: "Scheduled",
-    employee: "Raj",
-    start: new Date(2025, 7, 5, 9, 0),
-    end: new Date(2025, 7, 5, 11, 0)
-  },
-  {
-    id: 2,
-    title: "Task - Inventory",
-    type: "Task",
-    status: "In Progress",
-    employee: "Priya",
-    start: new Date(2025, 7, 6, 13, 0),
-    end: new Date(2025, 7, 6, 14, 0)
-  },
-  {
-    id: 3,
-    title: "Reminder - Follow-up",
-    type: "Reminder",
-    status: "Unscheduled",
-    employee: "Raj",
-    start: null,
-    end: null
-  }
-];
+// // // // // const SchedulePage: React.FC = () => {
+// // // // //   const [events, setEvents] = useState([
+// // // // //     {
+// // // // //       id: 1,
+// // // // //       title: "Site Visit - Worker A",
+// // // // //       start: new Date(),
+// // // // //       end: new Date(moment().add(2, "hours").toDate()),
+// // // // //       type: "Visit",
+// // // // //       status: "Scheduled",
+// // // // //       employee: "Worker A",
+// // // // //     },
+// // // // //   ]);
 
-const employees = ["All", "Raj", "Priya"];
-const types = ["All", "Visit", "Task", "Event", "Reminder", "Request"];
-const statuses = ["All", "Scheduled", "In Progress", "Unscheduled", "Overdue"];
-const views: Views[] = ["month", "week", "day"];
+// // // // //   const [open, setOpen] = useState(false);
+// // // // //   const [newEvent, setNewEvent] = useState({
+// // // // //     title: "",
+// // // // //     start: new Date(),
+// // // // //     end: new Date(),
+// // // // //   });
 
-const colorMap: Record<string, string> = {
-  Visit: "green",
-  Task: "blue",
-  Event: "gold",
-  Request: "orange",
-  Reminder: "red"
-};
+// // // // //   const addEvent = () => {
+// // // // //     setEvents([
+// // // // //       ...events,
+// // // // //       { ...newEvent, id: events.length + 1, type: "Task", status: "Scheduled", employee: "Worker B" },
+// // // // //     ]);
+// // // // //     setOpen(false);
+// // // // //   };
 
-const ScheduleOverview: React.FC = () => {
-  const [view, setView] = useState<Views>("month");
-  const [filterEmp, setFilterEmp] = useState("All");
-  const [filterType, setFilterType] = useState("All");
-  const [filterStatus, setFilterStatus] = useState("All");
+// // // // //   return (
+// // // // //     <div className="p-6 grid grid-cols-12 gap-4">
+// // // // //       {/* Filters */}
+// // // // //       <Card className="col-span-12 p-4">
+// // // // //         <div className="flex gap-4">
+// // // // //           <Select>
+// // // // //             <SelectTrigger className="w-[200px]">
+// // // // //               <SelectValue placeholder="Filter by Employee" />
+// // // // //             </SelectTrigger>
+// // // // //             <SelectContent>
+// // // // //               <SelectItem value="all">All</SelectItem>
+// // // // //               <SelectItem value="workerA">Worker A</SelectItem>
+// // // // //               <SelectItem value="workerB">Worker B</SelectItem>
+// // // // //             </SelectContent>
+// // // // //           </Select>
 
-  // Only show scheduled items with start/end dates
-  const filtered = useMemo(() => {
-    return items
-      .filter(it =>
-        (filterEmp === "All" || it.employee === filterEmp) &&
-        (filterType === "All" || it.type === filterType) &&
-        (filterStatus === "All" || it.status === filterStatus)
-      )
-      .filter(it => it.status !== "Unscheduled" && it.start && it.end);
-  }, [filterEmp, filterType, filterStatus]);
+// // // // //           <Select>
+// // // // //             <SelectTrigger className="w-[200px]">
+// // // // //               <SelectValue placeholder="Filter by Type" />
+// // // // //             </SelectTrigger>
+// // // // //             <SelectContent>
+// // // // //               <SelectItem value="all">All</SelectItem>
+// // // // //               <SelectItem value="visit">Visit</SelectItem>
+// // // // //               <SelectItem value="task">Task</SelectItem>
+// // // // //               <SelectItem value="event">Event</SelectItem>
+// // // // //             </SelectContent>
+// // // // //           </Select>
 
+// // // // //           <Select>
+// // // // //             <SelectTrigger className="w-[200px]">
+// // // // //               <SelectValue placeholder="Filter by Status" />
+// // // // //             </SelectTrigger>
+// // // // //             <SelectContent>
+// // // // //               <SelectItem value="all">All</SelectItem>
+// // // // //               <SelectItem value="scheduled">Scheduled</SelectItem>
+// // // // //               <SelectItem value="unscheduled">Unscheduled</SelectItem>
+// // // // //               <SelectItem value="inprogress">In Progress</SelectItem>
+// // // // //             </SelectContent>
+// // // // //           </Select>
+
+// // // // //           <Button onClick={() => setOpen(true)} className="ml-auto">
+// // // // //             + Add Schedule
+// // // // //           </Button>
+// // // // //         </div>
+// // // // //       </Card>
+
+// // // // //       {/* Calendar */}
+// // // // //       <Card className="col-span-8">
+// // // // //         <CardContent>
+// // // // //           <Calendar
+// // // // //             localizer={localizer}
+// // // // //             events={events}
+// // // // //             startAccessor="start"
+// // // // //             endAccessor="end"
+// // // // //             style={{ height: 500 }}
+// // // // //             defaultView={Views.WEEK}
+// // // // //           />
+// // // // //         </CardContent>
+// // // // //       </Card>
+
+// // // // //       {/* Schedule Table */}
+// // // // //       <Card className="col-span-4">
+// // // // //         <CardContent>
+// // // // //           <h2 className="text-lg font-semibold mb-2">Scheduled Tasks</h2>
+// // // // //           <ul className="space-y-2">
+// // // // //             {events.map((e) => (
+// // // // //               <li key={e.id} className="p-2 border rounded-md">
+// // // // //                 <p className="font-medium">{e.title}</p>
+// // // // //                 <p className="text-sm text-gray-500">
+// // // // //                   {moment(e.start).format("MMM D, h:mm A")} -{" "}
+// // // // //                   {moment(e.end).format("h:mm A")}
+// // // // //                 </p>
+// // // // //                 <p className="text-xs text-gray-400">{e.type} • {e.status}</p>
+// // // // //               </li>
+// // // // //             ))}
+// // // // //           </ul>
+// // // // //         </CardContent>
+// // // // //       </Card>
+
+// // // // //       {/* Add Event Dialog */}
+// // // // //       <Dialog open={open} onOpenChange={setOpen}>
+// // // // //         <DialogContent>
+// // // // //           <DialogHeader>
+// // // // //             <DialogTitle>Add New Schedule</DialogTitle>
+// // // // //           </DialogHeader>
+// // // // //           <div className="space-y-3">
+// // // // //             <Input
+// // // // //               placeholder="Title"
+// // // // //               value={newEvent.title}
+// // // // //               onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
+// // // // //             />
+// // // // //             <Button onClick={addEvent}>Save</Button>
+// // // // //           </div>
+// // // // //         </DialogContent>
+// // // // //       </Dialog>
+// // // // //     </div>
+// // // // //   );
+// // // // // };
+
+// // // // // export default SchedulePage;
+
+// // // // SchedulePage.tsx
+// // // import React, { useEffect, useState } from "react";
+// // // import { Calendar, momentLocalizer, Views } from "react-big-calendar";
+// // // import moment from "moment";
+// // // import "react-big-calendar/lib/css/react-big-calendar.css";
+// // // import { Button } from "@/components/ui/button";
+// // // import { Card, CardContent } from "@/components/ui/card";
+// // // import {
+// // //   Select,
+// // //   SelectContent,
+// // //   SelectItem,
+// // //   SelectTrigger,
+// // //   SelectValue,
+// // // } from "@/components/ui/select";
+// // // import {
+// // //   Dialog,
+// // //   DialogContent,
+// // //   DialogHeader,
+// // //   DialogTitle,
+// // // } from "@/components/ui/dialog";
+// // // import { Input } from "@/components/ui/input";
+
+// // // const localizer = momentLocalizer(moment);
+
+// // // interface Event {
+// // //   id: string;
+// // //   title: string;
+// // //   start: Date;
+// // //   end: Date;
+// // //   type: string;
+// // //   status: string;
+// // //   employee: string;
+// // // }
+
+// // // const SchedulePage: React.FC = () => {
+// // //   const [events, setEvents] = useState<Event[]>([]);
+// // // const [users, setUsers] = useState<any[]>([]);
+// // //   const [types, setTypes] = useState<any[]>([]);
+// // //   const [statuses, setStatuses] = useState<any[]>([]);
+
+// // //   const [selectedEmployee, setSelectedEmployee] = useState<string>("all");
+// // //   const [selectedType, setSelectedType] = useState<string>("all");
+// // //   const [selectedStatus, setSelectedStatus] = useState<string>("all");
+
+// // //   const [open, setOpen] = useState(false);
+// // //   const [newEvent, setNewEvent] = useState<any>({
+// // //     title: "",
+// // //     start: new Date(),
+// // //     end: new Date(),
+// // //     type: "",
+// // //     status: "",
+// // //     employee: "",
+// // //   });
+
+// // //  useEffect(() => {
+// // //   fetch("http://localhost:5000/api/users")
+// // //     .then((res) => res.json())
+// // //     .then(setUsers);
+
+// // //   fetch("http://localhost:5000/api/work_order_types")
+// // //     .then((res) => res.json())
+// // //     .then(setTypes)
+// // //     .catch((err) => console.error(err));
+
+// // //   fetch("http://localhost:5000/api/work_order_status")
+// // //     .then((res) => res.json())
+// // //     .then(setStatuses)
+// // //     .catch((err) => console.error(err));
+// // // }, []);
+
+
+// // //   const addEvent = async () => {
+// // //     const body = {
+// // //       title: newEvent.title,
+// // //       start_time: newEvent.start,
+// // //       end_time: newEvent.end,
+// // //       type: newEvent.type,
+// // //       status: newEvent.status,
+// // //       employee: newEvent.employee,
+// // //     };
+
+// // //     const res = await fetch("http://localhost:5000/api/schedule", {
+// // //       method: "POST",
+// // //       headers: { "Content-Type": "application/json" },
+// // //       body: JSON.stringify(body),
+// // //     });
+
+// // //     if (res.ok) {
+// // //       const saved = await res.json();
+// // //       setEvents([
+// // //         ...events,
+// // //         {
+// // //           ...saved,
+// // //           start: new Date(saved.start_time),
+// // //           end: new Date(saved.end_time),
+// // //         },
+// // //       ]);
+// // //       setOpen(false);
+// // //       setNewEvent({
+// // //         title: "",
+// // //         start: new Date(),
+// // //         end: new Date(),
+// // //         type: "",
+// // //         status: "",
+// // //         Users: "",
+// // //       });
+// // //     }
+// // //   };
+
+// // //   // Apply filters
+// // //   const filteredEvents = events.filter((e) => {
+// // //     return (
+// // //       (selectedUser=== "all" || e.employee === selectedEmployee) &&
+// // //       (selectedType === "all" || e.type === selectedType) &&
+// // //       (selectedStatus === "all" || e.status === selectedStatus)
+// // //     );
+// // //   });
+
+// // //   return (
+// // //     <div className="p-6 grid grid-cols-12 gap-4">
+// // //       {/* Filters */}
+// // //       <Card className="col-span-12 p-4">
+// // //         <div className="flex gap-4">
+// // //           <Select onValueChange={setUsers} defaultValue="all">
+// // //             <SelectTrigger className="w-[200px]">
+// // //               <SelectValue placeholder="Filter by Employee" />
+// // //             </SelectTrigger>
+// // //             <SelectContent>
+// // //               <SelectItem value="all">All</SelectItem>
+// // //               {Users.map((emp) => (
+// // //                 <SelectItem key={emp.id} value={emp.username}>
+// // //                   {emp.username}
+// // //                 </SelectItem>
+// // //               ))}
+// // //             </SelectContent>
+// // //           </Select>
+
+// // //           <Select onValueChange={setSelectedType} defaultValue="all">
+// // //             <SelectTrigger className="w-[200px]">
+// // //               <SelectValue placeholder="Filter by Type" />
+// // //             </SelectTrigger>
+// // //             <SelectContent>
+// // //               <SelectItem value="all">All</SelectItem>
+// // //               {types.map((t) => (
+// // //                 <SelectItem key={t.id} value={t.name}>
+// // //                   {t.name}
+// // //                 </SelectItem>
+// // //               ))}
+// // //             </SelectContent>
+// // //           </Select>
+
+// // //           <Select onValueChange={setSelectedStatus} defaultValue="all">
+// // //             <SelectTrigger className="w-[200px]">
+// // //               <SelectValue placeholder="Filter by Status" />
+// // //             </SelectTrigger>
+// // //             <SelectContent>
+// // //               <SelectItem value="all">All</SelectItem>
+// // //               {statuses.map((s) => (
+// // //                 <SelectItem key={s.id} value={s.name}>
+// // //                   {s.name}
+// // //                 </SelectItem>
+// // //               ))}
+// // //             </SelectContent>
+// // //           </Select>
+
+// // //           <Button onClick={() => setOpen(true)} className="ml-auto">
+// // //             + Add Schedule
+// // //           </Button>
+// // //         </div>
+// // //       </Card>
+
+// // //       {/* Calendar */}
+// // //       <Card className="col-span-8">
+// // //         <CardContent>
+// // //           <Calendar
+// // //             localizer={localizer}
+// // //             events={filteredEvents}
+// // //             startAccessor="start"
+// // //             endAccessor="end"
+// // //             style={{ height: 500 }}
+// // //             defaultView={Views.WEEK}
+// // //           />
+// // //         </CardContent>
+// // //       </Card>
+
+// // //       {/* Schedule Table */}
+// // //       <Card className="col-span-4">
+// // //         <CardContent>
+// // //           <h2 className="text-lg font-semibold mb-2">Scheduled Tasks</h2>
+// // //           <ul className="space-y-2">
+// // //             {filteredEvents.map((e) => (
+// // //               <li key={e.id} className="p-2 border rounded-md">
+// // //                 <p className="font-medium">{e.title}</p>
+// // //                 <p className="text-sm text-gray-500">
+// // //                   {moment(e.start).format("MMM D, h:mm A")} -{" "}
+// // //                   {moment(e.end).format("h:mm A")}
+// // //                 </p>
+// // //                 <p className="text-xs text-gray-400">
+// // //                   {e.type} • {e.status} • {e.employee}
+// // //                 </p>
+// // //               </li>
+// // //             ))}
+// // //           </ul>
+// // //         </CardContent>
+// // //       </Card>
+
+// // //       {/* Add Event Dialog */}
+// // //       <Dialog open={open} onOpenChange={setOpen}>
+// // //         <DialogContent>
+// // //           <DialogHeader>
+// // //             <DialogTitle>Add New Schedule</DialogTitle>
+// // //           </DialogHeader>
+// // //           <div className="space-y-3">
+// // //             <Input
+// // //               placeholder="Title"
+// // //               value={newEvent.title}
+// // //               onChange={(e) =>
+// // //                 setNewEvent({ ...newEvent, title: e.target.value })
+// // //               }
+// // //             />
+
+// // //             {/* Employee */}
+// // //             <Select
+// // //               value={newEvent.employee}
+// // //               onValueChange={(v) => setNewEvent({ ...newEvent, employee: v })}
+// // //             >
+// // //               <SelectTrigger>
+// // //                 <SelectValue placeholder="Select Employee" />
+// // //               </SelectTrigger>
+// // //               <SelectContent>
+// // //                 {employees.map((emp) => (
+// // //                   <SelectItem key={emp.id} value={emp.username}>
+// // //                     {emp.username}
+// // //                   </SelectItem>
+// // //                 ))}
+// // //               </SelectContent>
+// // //             </Select>
+
+// // //             {/* Type */}
+// // //             <Select
+// // //               value={newEvent.type}
+// // //               onValueChange={(v) => setNewEvent({ ...newEvent, type: v })}
+// // //             >
+// // //               <SelectTrigger>
+// // //                 <SelectValue placeholder="Select Type" />
+// // //               </SelectTrigger>
+// // //               <SelectContent>
+// // //                 {types.map((t) => (
+// // //                   <SelectItem key={t.id} value={t.name}>
+// // //                     {t.name}
+// // //                   </SelectItem>
+// // //                 ))}
+// // //               </SelectContent>
+// // //             </Select>
+
+// // //             {/* Status */}
+// // //             <Select
+// // //               value={newEvent.status}
+// // //               onValueChange={(v) => setNewEvent({ ...newEvent, status: v })}
+// // //             >
+// // //               <SelectTrigger>
+// // //                 <SelectValue placeholder="Select Status" />
+// // //               </SelectTrigger>
+// // //               <SelectContent>
+// // //                 {statuses.map((s) => (
+// // //                   <SelectItem key={s.id} value={s.name}>
+// // //                     {s.name}
+// // //                   </SelectItem>
+// // //                 ))}
+// // //               </SelectContent>
+// // //             </Select>
+
+// // //             <Button onClick={addEvent}>Save</Button>
+// // //           </div>
+// // //         </DialogContent>
+// // //       </Dialog>
+// // //     </div>
+// // //   );
+// // // };
+
+// // // export default SchedulePage;
+
+// // import React, { useEffect, useState } from "react";
+// // import { Calendar, momentLocalizer, Views } from "react-big-calendar";
+// // import moment from "moment";
+// // import "react-big-calendar/lib/css/react-big-calendar.css";
+// // import { Button } from "@/components/ui/button";
+// // import { Card, CardContent } from "@/components/ui/card";
+// // import {
+// //   Select,
+// //   SelectContent,
+// //   SelectItem,
+// //   SelectTrigger,
+// //   SelectValue,
+// // } from "@/components/ui/select";
+// // import {
+// //   Dialog,
+// //   DialogContent,
+// //   DialogHeader,
+// //   DialogTitle,
+// // } from "@/components/ui/dialog";
+// // import { Input } from "@/components/ui/input";
+
+// // const localizer = momentLocalizer(moment);
+
+// // interface Event {
+// //   id: string;
+// //   title: string;
+// //   start: Date;
+// //   end: Date;
+// //   type: string;
+// //   status: string;
+// //   employee: string;
+// // }
+
+// // const SchedulePage: React.FC = () => {
+// //   const [events, setEvents] = useState<Event[]>([]);
+// //   const [users, setUsers] = useState<any[]>([]);
+// //   const [types, setTypes] = useState<any[]>([]);
+// //   const [statuses, setStatuses] = useState<any[]>([]);
+
+// //   const [selectedUser, setSelectedUser] = useState<string>("all");
+// //   const [selectedType, setSelectedType] = useState<string>("all");
+// //   const [selectedStatus, setSelectedStatus] = useState<string>("all");
+
+// //   const [open, setOpen] = useState(false);
+// //   const [newEvent, setNewEvent] = useState<any>({
+// //     title: "",
+// //     start: new Date(),
+// //     end: new Date(),
+// //     type: "",
+// //     status: "",
+// //     employee: "",
+// //   });
+
+// //   // Fetch all data safely
+// //   useEffect(() => {
+// //     const fetchData = async () => {
+// //       try {
+// //         const [usersRes, typesRes, statusesRes, eventsRes] = await Promise.all([
+// //           fetch("http://localhost:5000/api/users"),
+// //           fetch("http://localhost:5000/api/work_order_types"),
+// //           fetch("http://localhost:5000/api/work_order_status"),
+// //           fetch("http://localhost:5000/api/schedule"),
+// //         ]);
+
+// //         const usersData = await usersRes.json();
+// //         setUsers(Array.isArray(usersData) ? usersData : []);
+
+// //         const typesData = await typesRes.json();
+// //         setTypes(Array.isArray(typesData) ? typesData : []);
+
+// //         const statusesData = await statusesRes.json();
+// //         setStatuses(Array.isArray(statusesData) ? statusesData : []);
+
+// //         const eventsData = await eventsRes.json();
+// //         setEvents(
+// //           Array.isArray(eventsData)
+// //             ? eventsData.map((e) => ({
+// //                 ...e,
+// //                 start: new Date(e.start_time),
+// //                 end: new Date(e.end_time),
+// //               }))
+// //             : []
+// //         );
+// //       } catch (err) {
+// //         console.error("Failed to fetch data:", err);
+// //         setUsers([]);
+// //         setTypes([]);
+// //         setStatuses([]);
+// //         setEvents([]);
+// //       }
+// //     };
+
+// //     fetchData();
+// //   }, []);
+
+// //   // Add new event
+// //   const addEvent = async () => {
+// //     try {
+// //       const body = {
+// //         title: newEvent.title,
+// //         start_time: newEvent.start,
+// //         end_time: newEvent.end,
+// //         type: newEvent.type,
+// //         status: newEvent.status,
+// //         employee: newEvent.employee,
+// //       };
+// //       const res = await fetch("http://localhost:5000/api/schedule", {
+// //         method: "POST",
+// //         headers: { "Content-Type": "application/json" },
+// //         body: JSON.stringify(body),
+// //       });
+// //       if (!res.ok) throw new Error("Failed to save event");
+// //       const saved = await res.json();
+// //       setEvents([
+// //         ...events,
+// //         {
+// //           ...saved,
+// //           start: new Date(saved.start_time),
+// //           end: new Date(saved.end_time),
+// //         },
+// //       ]);
+// //       setOpen(false);
+// //       setNewEvent({
+// //         title: "",
+// //         start: new Date(),
+// //         end: new Date(),
+// //         type: "",
+// //         status: "",
+// //         employee: "",
+// //       });
+// //     } catch (err) {
+// //       console.error(err);
+// //     }
+// //   };
+
+// //   // Apply filters safely
+// //   const filteredEvents = events.filter((e) => {
+// //     return (
+// //       (selectedUser === "all" || e.employee === selectedUser) &&
+// //       (selectedType === "all" || e.type === selectedType) &&
+// //       (selectedStatus === "all" || e.status === selectedStatus)
+// //     );
+// //   });
+
+// //   return (
+// //     <div className="p-6 grid grid-cols-12 gap-4">
+// //       {/* Filters */}
+// //       <Card className="col-span-12 p-4">
+// //         <div className="flex gap-4">
+// //           <Select onValueChange={setSelectedUser} defaultValue="all">
+// //             <SelectTrigger className="w-[200px]">
+// //               <SelectValue placeholder="Filter by Employee" />
+// //             </SelectTrigger>
+// //             <SelectContent>
+// //               <SelectItem value="all">All</SelectItem>
+// //               {(Array.isArray(users) ? users : []).map((u) => (
+// //                 <SelectItem key={u.id} value={u.username}>
+// //                   {u.username}
+// //                 </SelectItem>
+// //               ))}
+// //             </SelectContent>
+// //           </Select>
+
+// //           <Select onValueChange={setSelectedType} defaultValue="all">
+// //             <SelectTrigger className="w-[200px]">
+// //               <SelectValue placeholder="Filter by Type" />
+// //             </SelectTrigger>
+// //             <SelectContent>
+// //               <SelectItem value="all">All</SelectItem>
+// //               {(Array.isArray(types) ? types : []).map((t) => (
+// //                 <SelectItem key={t.id} value={t.name}>
+// //                   {t.name}
+// //                 </SelectItem>
+// //               ))}
+// //             </SelectContent>
+// //           </Select>
+
+// //           <Select onValueChange={setSelectedStatus} defaultValue="all">
+// //             <SelectTrigger className="w-[200px]">
+// //               <SelectValue placeholder="Filter by Status" />
+// //             </SelectTrigger>
+// //             <SelectContent>
+// //               <SelectItem value="all">All</SelectItem>
+// //               {(Array.isArray(statuses) ? statuses : []).map((s) => (
+// //                 <SelectItem key={s.id} value={s.name}>
+// //                   {s.name}
+// //                 </SelectItem>
+// //               ))}
+// //             </SelectContent>
+// //           </Select>
+
+// //           <Button onClick={() => setOpen(true)} className="ml-auto">
+// //             + Add Schedule
+// //           </Button>
+// //         </div>
+// //       </Card>
+
+// //       {/* Calendar */}
+// //       <Card className="col-span-8">
+// //         <CardContent>
+// //           <Calendar
+// //             localizer={localizer}
+// //             events={filteredEvents}
+// //             startAccessor="start"
+// //             endAccessor="end"
+// //             style={{ height: 500 }}
+// //             defaultView={Views.WEEK}
+// //           />
+// //         </CardContent>
+// //       </Card>
+
+// //       {/* Schedule Table */}
+// //       <Card className="col-span-4">
+// //         <CardContent>
+// //           <h2 className="text-lg font-semibold mb-2">Scheduled Tasks</h2>
+// //           <ul className="space-y-2">
+// //             {filteredEvents.map((e) => (
+// //               <li key={e.id} className="p-2 border rounded-md">
+// //                 <p className="font-medium">{e.title}</p>
+// //                 <p className="text-sm text-gray-500">
+// //                   {moment(e.start).format("MMM D, h:mm A")} -{" "}
+// //                   {moment(e.end).format("h:mm A")}
+// //                 </p>
+// //                 <p className="text-xs text-gray-400">
+// //                   {e.type} • {e.status} • {e.employee}
+// //                 </p>
+// //               </li>
+// //             ))}
+// //           </ul>
+// //         </CardContent>
+// //       </Card>
+
+// //       {/* Add Event Dialog */}
+// //       <Dialog open={open} onOpenChange={setOpen}>
+// //         <DialogContent>
+// //           <DialogHeader>
+// //             <DialogTitle>Add New Schedule</DialogTitle>
+// //           </DialogHeader>
+// //           <div className="space-y-3">
+// //             <Input
+// //               placeholder="Title"
+// //               value={newEvent.title}
+// //               onChange={(e) =>
+// //                 setNewEvent({ ...newEvent, title: e.target.value })
+// //               }
+// //             />
+
+// //             {/* Employee */}
+// //             <Select
+// //               value={newEvent.employee}
+// //               onValueChange={(v) => setNewEvent({ ...newEvent, employee: v })}
+// //             >
+// //               <SelectTrigger>
+// //                 <SelectValue placeholder="Select Employee" />
+// //               </SelectTrigger>
+// //               <SelectContent>
+// //                 {(Array.isArray(users) ? users : []).map((u) => (
+// //                   <SelectItem key={u.id} value={u.username}>
+// //                     {u.username}
+// //                   </SelectItem>
+// //                 ))}
+// //               </SelectContent>
+// //             </Select>
+
+// //             {/* Type */}
+// //             <Select
+// //               value={newEvent.type}
+// //               onValueChange={(v) => setNewEvent({ ...newEvent, type: v })}
+// //             >
+// //               <SelectTrigger>
+// //                 <SelectValue placeholder="Select Type" />
+// //               </SelectTrigger>
+// //               <SelectContent>
+// //                 {(Array.isArray(types) ? types : []).map((t) => (
+// //                   <SelectItem key={t.id} value={t.name}>
+// //                     {t.name}
+// //                   </SelectItem>
+// //                 ))}
+// //               </SelectContent>
+// //             </Select>
+
+// //             {/* Status */}
+// //             <Select
+// //               value={newEvent.status}
+// //               onValueChange={(v) => setNewEvent({ ...newEvent, status: v })}
+// //             >
+// //               <SelectTrigger>
+// //                 <SelectValue placeholder="Select Status" />
+// //               </SelectTrigger>
+// //               <SelectContent>
+// //                 {(Array.isArray(statuses) ? statuses : []).map((s) => (
+// //                   <SelectItem key={s.id} value={s.name}>
+// //                     {s.name}
+// //                   </SelectItem>
+// //                 ))}
+// //               </SelectContent>
+// //             </Select>
+
+// //             <Button onClick={addEvent}>Save</Button>
+// //           </div>
+// //         </DialogContent>
+// //       </Dialog>
+// //     </div>
+// //   );
+// // };
+
+// // export default SchedulePage;
+// import React, { useEffect, useState } from "react";
+// import { Calendar, momentLocalizer, Views } from "react-big-calendar";
+// import moment from "moment";
+// import "react-big-calendar/lib/css/react-big-calendar.css";
+// import { Button } from "@/components/ui/button";
+// import { Card, CardContent } from "@/components/ui/card";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from "@/components/ui/select";
+// import {
+//   Dialog,
+//   DialogContent,
+//   DialogHeader,
+//   DialogTitle,
+// } from "@/components/ui/dialog";
+// import { Input } from "@/components/ui/input";
+
+// const localizer = momentLocalizer(moment);
+
+// interface Event {
+//   id: string;
+//   title: string;
+//   start: Date;
+//   end: Date;
+//   type: string;
+//   status: string;
+//   employee: string;
+// }
+
+// const STATUS_OPTIONS = ["Scheduled", "In Progress", "Unscheduled"];
+
+// const SchedulePage: React.FC = () => {
+//   const [events, setEvents] = useState<Event[]>([]);
+//   const [users, setUsers] = useState<any[]>([]);
+//   const [types, setTypes] = useState<any[]>([]);
+
+//   const [selectedUser, setSelectedUser] = useState<string>("all");
+//   const [selectedType, setSelectedType] = useState<string>("all");
+//   const [selectedStatus, setSelectedStatus] = useState<string>("all");
+
+//   const [open, setOpen] = useState(false);
+//   const [newEvent, setNewEvent] = useState<any>({
+//     title: "",
+//     start: new Date(),
+//     end: new Date(),
+//     type: "",
+//     status: "Scheduled",
+//     employee: "",
+//   });
+
+//   // Fetch Users and Types only
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const [usersRes, typesRes, eventsRes] = await Promise.all([
+//           fetch("http://localhost:5000/api/users"),
+//           fetch("http://localhost:5000/api/work_order_types"),
+//           fetch("http://localhost:5000/api/schedule"),
+//         ]);
+
+//         const usersData = await usersRes.json();
+//         setUsers(Array.isArray(usersData) ? usersData : []);
+
+//         const typesData = await typesRes.json();
+//         setTypes(Array.isArray(typesData) ? typesData : []);
+
+//         const eventsData = await eventsRes.json();
+//         setEvents(
+//           Array.isArray(eventsData)
+//             ? eventsData.map((e) => ({
+//                 ...e,
+//                 start: new Date(e.start_time),
+//                 end: new Date(e.end_time),
+//               }))
+//             : []
+//         );
+//       } catch (err) {
+//         console.error("Failed to fetch data:", err);
+//         setUsers([]);
+//         setTypes([]);
+//         setEvents([]);
+//       }
+//     };
+
+//     fetchData();
+//   }, []);
+
+//   const addEvent = async () => {
+//     try {
+//       const body = {
+//         title: newEvent.title,
+//         start_time: newEvent.start,
+//         end_time: newEvent.end,
+//         type: newEvent.type,
+//         status: newEvent.status,
+//         employee: newEvent.employee,
+//       };
+//       const res = await fetch("http://localhost:5000/api/schedule", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify(body),
+//       });
+//       if (!res.ok) throw new Error("Failed to save event");
+//       const saved = await res.json();
+//       setEvents([
+//         ...events,
+//         {
+//           ...saved,
+//           start: new Date(saved.start_time),
+//           end: new Date(saved.end_time),
+//         },
+//       ]);
+//       setOpen(false);
+//       setNewEvent({
+//         title: "",
+//         start: new Date(),
+//         end: new Date(),
+//         type: "",
+//         status: "Scheduled",
+//         employee: "",
+//       });
+//     } catch (err) {
+//       console.error(err);
+//     }
+//   };
+
+//   const filteredEvents = events.filter((e) => {
+//     return (
+//       (selectedUser === "all" || e.employee === selectedUser) &&
+//       (selectedType === "all" || e.type === selectedType) &&
+//       (selectedStatus === "all" || e.status === selectedStatus)
+//     );
+//   });
+
+//   return (
+//     <div className="p-6 grid grid-cols-12 gap-4">
+//       {/* Filters */}
+//       <Card className="col-span-12 p-4">
+//         <div className="flex gap-4">
+//           <Select onValueChange={setSelectedUser} defaultValue="all">
+//             <SelectTrigger className="w-[200px]">
+//               <SelectValue placeholder="Filter by Employee" />
+//             </SelectTrigger>
+//             <SelectContent>
+//               <SelectItem value="all">All</SelectItem>
+//               {(Array.isArray(users) ? users : []).map((u) => (
+//                 <SelectItem key={u.id} value={u.username}>
+//                   {u.username}
+//                 </SelectItem>
+//               ))}
+//             </SelectContent>
+//           </Select>
+
+//           <Select onValueChange={setSelectedType} defaultValue="all">
+//             <SelectTrigger className="w-[200px]">
+//               <SelectValue placeholder="Filter by Type" />
+//             </SelectTrigger>
+//             <SelectContent>
+//               <SelectItem value="all">All</SelectItem>
+//               {(Array.isArray(types) ? types : []).map((t) => (
+//                 <SelectItem key={t.id} value={t.name}>
+//                   {t.name}
+//                 </SelectItem>
+//               ))}
+//             </SelectContent>
+//           </Select>
+
+//           <Select onValueChange={setSelectedStatus} defaultValue="all">
+//             <SelectTrigger className="w-[200px]">
+//               <SelectValue placeholder="Filter by Status" />
+//             </SelectTrigger>
+//             <SelectContent>
+//               <SelectItem value="all">All</SelectItem>
+//               {STATUS_OPTIONS.map((s) => (
+//                 <SelectItem key={s} value={s}>
+//                   {s}
+//                 </SelectItem>
+//               ))}
+//             </SelectContent>
+//           </Select>
+
+//           <Button onClick={() => setOpen(true)} className="ml-auto">
+//             + Add Schedule
+//           </Button>
+//         </div>
+//       </Card>
+
+//       {/* Calendar */}
+//       <Card className="col-span-8">
+//         <CardContent>
+//           <Calendar
+//             localizer={localizer}
+//             events={filteredEvents}
+//             startAccessor="start"
+//             endAccessor="end"
+//             style={{ height: 500 }}
+//             defaultView={Views.WEEK}
+//           />
+//         </CardContent>
+//       </Card>
+
+//       {/* Schedule Table */}
+//       <Card className="col-span-4">
+//         <CardContent>
+//           <h2 className="text-lg font-semibold mb-2">Scheduled Tasks</h2>
+//           <ul className="space-y-2">
+//             {filteredEvents.map((e) => (
+//               <li key={e.id} className="p-2 border rounded-md">
+//                 <p className="font-medium">{e.title}</p>
+//                 <p className="text-sm text-gray-500">
+//                   {moment(e.start).format("MMM D, h:mm A")} -{" "}
+//                   {moment(e.end).format("h:mm A")}
+//                 </p>
+//                 <p className="text-xs text-gray-400">
+//                   {e.type} • {e.status} • {e.employee}
+//                 </p>
+//               </li>
+//             ))}
+//           </ul>
+//         </CardContent>
+//       </Card>
+
+//       {/* Add Event Dialog */}
+//       <Dialog open={open} onOpenChange={setOpen}>
+//         <DialogContent>
+//           <DialogHeader>
+//             <DialogTitle>Add New Schedule</DialogTitle>
+//           </DialogHeader>
+//           <div className="space-y-3">
+//             <Input
+//               placeholder="Title"
+//               value={newEvent.title}
+//               onChange={(e) =>
+//                 setNewEvent({ ...newEvent, title: e.target.value })
+//               }
+//             />
+
+//             {/* Start Date */}
+//             <Input
+//               type="datetime-local"
+//               value={moment(newEvent.start).format("YYYY-MM-DDTHH:mm")}
+//               onChange={(e) =>
+//                 setNewEvent({ ...newEvent, start: new Date(e.target.value) })
+//               }
+//             />
+
+//             {/* End Date */}
+//             <Input
+//               type="datetime-local"
+//               value={moment(newEvent.end).format("YYYY-MM-DDTHH:mm")}
+//               onChange={(e) =>
+//                 setNewEvent({ ...newEvent, end: new Date(e.target.value) })
+//               }
+//             />
+
+//             {/* Employee */}
+//             <Select
+//               value={newEvent.employee}
+//               onValueChange={(v) => setNewEvent({ ...newEvent, employee: v })}
+//             >
+//               <SelectTrigger>
+//                 <SelectValue placeholder="Select Employee" />
+//               </SelectTrigger>
+//               <SelectContent>
+//                 {(Array.isArray(users) ? users : []).map((u) => (
+//                   <SelectItem key={u.id} value={u.username}>
+//                     {u.username}
+//                   </SelectItem>
+//                 ))}
+//               </SelectContent>
+//             </Select>
+
+//             {/* Type */}
+//             <Select
+//               value={newEvent.type}
+//               onValueChange={(v) => setNewEvent({ ...newEvent, type: v })}
+//             >
+//               <SelectTrigger>
+//                 <SelectValue placeholder="Select Type" />
+//               </SelectTrigger>
+//               <SelectContent>
+//                 {(Array.isArray(types) ? types : []).map((t) => (
+//                   <SelectItem key={t.id} value={t.name}>
+//                     {t.name}
+//                   </SelectItem>
+//                 ))}
+//               </SelectContent>
+//             </Select>
+
+//             {/* Status */}
+//             <Select
+//               value={newEvent.status}
+//               onValueChange={(v) => setNewEvent({ ...newEvent, status: v })}
+//             >
+//               <SelectTrigger>
+//                 <SelectValue placeholder="Select Status" />
+//               </SelectTrigger>
+//               <SelectContent>
+//                 {STATUS_OPTIONS.map((s) => (
+//                   <SelectItem key={s} value={s}>
+//                     {s}
+//                   </SelectItem>
+//                 ))}
+//               </SelectContent>
+//             </Select>
+
+//             <Button onClick={addEvent}>Save</Button>
+//           </div>
+//         </DialogContent>
+//       </Dialog>
+//     </div>
+//   );
+// };
+
+// export default SchedulePage;
+import React from 'react'
+
+const ScheduleOverview = () => {
   return (
-    <div className="p-4">
-      {/* Filters */}
-      <div className="flex gap-4 mb-4">
-        <Select value={filterEmp} onValueChange={setFilterEmp}>
-          <SelectTrigger><SelectValue placeholder="All" /></SelectTrigger>
-          <SelectContent>
-            {employees.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}
-          </SelectContent>
-        </Select>
-
-        <Select value={filterType} onValueChange={setFilterType}>
-          <SelectTrigger><SelectValue placeholder="All" /></SelectTrigger>
-          <SelectContent>
-            {types.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
-          </SelectContent>
-        </Select>
-
-        <Select value={filterStatus} onValueChange={setFilterStatus}>
-          <SelectTrigger><SelectValue placeholder="All" /></SelectTrigger>
-          <SelectContent>
-            {statuses.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
-          </SelectContent>
-        </Select>
-
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="outline">More Actions</Button>
-          </PopoverTrigger>
-          <PopoverContent className="flex flex-col gap-2 p-2">
-            <Button variant="ghost" onClick={() => alert("Add Job")}>Add Job</Button>
-            <Button variant="ghost" onClick={() => alert("Add Request")}>Add Request</Button>
-            <Button variant="ghost" onClick={() => alert("Add Task")}>Add Task</Button>
-            <Button variant="ghost" onClick={() => alert("Add Event")}>Add Event</Button>
-          </PopoverContent>
-        </Popover>
-      </div>
-
-      {/* Calendar */}
-      <Calendar
-        localizer={localizer}
-        events={filtered}
-        views={views}
-        view={view}
-        onView={(v) => setView(v as Views)}
-        defaultView="month"
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: 500 }}
-        min={new Date(2025, 7, 5, 8, 0)}
-        max={new Date(2025, 7, 5, 18, 0)}
-        eventPropGetter={(event) => ({
-          style: {
-            backgroundColor: colorMap[event.type] || "gray",
-            color: "white"
-          }
-        })}
-        onSelectEvent={(e) => alert(e.title)}
-      />
-
-      {/* Unscheduled */}
-      <div className="mt-6">
-        <h3 className="text-lg font-semibold mb-2">Unscheduled</h3>
-        {items.filter(it => it.status === "Unscheduled").map(it => (
-          <Card key={it.id} className="p-2 mb-2">
-            <div className="font-medium">{it.title}</div>
-            <div className="text-sm text-muted-foreground">
-              {it.type} • {it.employee || "Unassigned"}
-            </div>
-            {(it.start && it.end) && (
-              <div className="text-sm text-muted-foreground">
-                {moment(it.start).format("MMM D, YYYY, h:mm A")} - {moment(it.end).format("h:mm A")}
-              </div>
-            )}
-          </Card>
-        ))}
-      </div>
+    <div>
+      hello
     </div>
-  );
-};
+  )
+}
 
-export default ScheduleOverview;
+export default ScheduleOverview

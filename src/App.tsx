@@ -39,9 +39,9 @@ const App = () => (
           <Route path="/fields" element={<Layout title="Field Management"><Fields /></Layout>} />
           {/* <Route path="/workers" element={<Layout title="Field Workers"><Workers /></Layout>} /> */}
           <Route path="/scheduling" element={<Layout title="Scheduling"><div><h1 className="text-2xl font-bold"></h1><ScheduleOverview /></div></Layout>} />
-          <Route path="/equipment" element={<Layout title="Equipment"><div><h1 className="text-2xl font-bold">Equipment - Coming Soon</h1></div></Layout>} />
-          <Route path="/reports" element={<Layout title="Reports"><div><h1 className="text-2xl font-bold">Reports - Coming Soon</h1></div></Layout>} />
-          <Route path="/documents" element={<Layout title="Documents"><div><h1 className="text-2xl font-bold">Documents - Coming Soon</h1></div></Layout>} />
+          {/* <Route path="/equipment" element={<Layout title="Equipment"><div><h1 className="text-2xl font-bold">Equipment - Coming Soon</h1></div></Layout>} /> */}
+          {/* <Route path="/reports" element={<Layout title="Reports"><div><h1 className="text-2xl font-bold">Reports - Coming Soon</h1></div></Layout>} /> */}
+          {/* <Route path="/documents" element={<Layout title="Documents"><div><h1 className="text-2xl font-bold">Documents - Coming Soon</h1></div></Layout>} /> */}
           <Route path="/settings" element={<Layout title="Settings"><div><h1 className="text-2xl font-bold">Settings - Coming Soon</h1></div></Layout>} />
           <Route path="/fieldwork" element={<Layout title="Fieldworkforce"> <div className="min-h-screen bg-gray-50 p-6">
       <FieldWorkforce /></div></Layout>}/>
