@@ -38,6 +38,7 @@ const menuItems = [
   { id: 12, title: "Contact", url: "/contact", icon: Users },
   { id: 13, title: "Workorder", url: "/workorder", icon: Users },
   { id: 14, title: "User", url: "/user", icon: Users },
+  { id: 15, title: "Inventory", url: "/inventory", icon: Users },
 
 ];
 
