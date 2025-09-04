@@ -1027,17 +1027,28 @@ const Fields: React.FC = () => {
 
   return (
     <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Fields Management</h1>
-        <Button
-          onClick={() => {
-            setEditingField(null);
-            setIsDialogOpen(true);
-          }}
-        >
-          <Plus className="h-4 w-4 mr-2" /> New Field
-        </Button>
-      </div>
+     <div className="p-6">
+  <div className="flex justify-between items-center mb-6">
+    <h1 className="text-2xl font-bold">Fields Management</h1>
+    <Button onClick={() => {
+      setEditingField(null);
+      setIsDialogOpen(true);
+    }}>
+      <Plus className="h-4 w-4 mr-2" /> New Field
+    </Button>
+  </div>
+
+  {/* Recently Viewed and Update Info */}
+  <div className="mb-2 text-sm text-gray-600">Recently Viewed ▼</div>
+  <div className="mb-4 text-xs text-gray-400">
+    {fields.length} items - Updated just now
+  </div>
+
+  {/* Rest of list content, e.g. grid of cards */}
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {/* ...cards here... */}
+  </div>
+</div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {fields.map((field) => (

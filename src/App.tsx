@@ -25,6 +25,7 @@ import Workorder from "@/components/Workorder"
 import Workorderform from "@/components/Workorderform"
 import User from "@/components/user"
 import Newuser from "@/components/Newuser"
+import NewInventory from "@/components/Newinventory"
 import Inventory from "@/components/inventory"
 import Setting from "@/components/Setting"
 
@@ -61,6 +62,7 @@ const App = () => (
           <Route path="/workorder" element={<Layout title="Workorder"> <Workorder/> </Layout>} />
           <Route path="/user" element={<Layout title="User"> <User /> </Layout>} />
           <Route path="/newuser" element={<Layout title="Newuser"> <Newuser /> </Layout>} />
+          <Route path="/newinventory" element={<Layout title="newinventory"> <NewInventory /> </Layout>} />
           <Route path="/inventory" element={<Layout title="inventory"> <Inventory /> </Layout>} />
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
